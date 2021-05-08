@@ -1,23 +1,27 @@
 version: "3.7"
 services:
-  postgres:
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-    container_name: postgres
+  app:
+    build: .
+    ports: 
+      - 4000:4001
     restart: always
+    depends_on: 
+      - db
+  db:
+    image: postgres:12.6-alpine
     environment:
       POSTGRES_PASSWORD: "pass123"
       PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_DB: crudts
     ports:
       - 15432:5432
-    volumes:
-      - pgdata:/var/lib/postgresql/data
     networks:
       postgres_networks:
         aliases:
           - postgres_host
-volumes:
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes: 
   pgdata: {}
 networks:
   postgres_networks:
