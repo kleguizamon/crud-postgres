@@ -1,6 +1,30 @@
 import { pool } from '../db/pool';
 import { QueryResult } from 'pg';
 
+export const getUserService = async () => {
+	try {
+		const response: QueryResult = await pool.query(
+			`SELECT * FROM users LIMIT 5`
+		);
+		return response.rows;
+	} catch (err) {
+		console.log(err);
+	}
+};
+
+export const getUserByIdServices = async (id: string) => {
+	try {
+		const response: QueryResult = await pool.query(
+			`SELECT * FROM users 
+				WHERE id = $1`,
+			[id]
+		);
+		return response.rows;
+	} catch (err) {
+		console.log(err);
+	}
+};
+
 export const postUserService = async (
 	name: string,
 	surname: string,
@@ -20,24 +44,35 @@ export const postUserService = async (
 	}
 };
 
-export const getUserService = async () => {
+export const putUserServices = async (
+	id: string,
+	name: string,
+	surname: string,
+	age: number,
+	create_date: Date,
+	email: string
+) => {
 	try {
 		const response: QueryResult = await pool.query(
-			`SELECT * FROM users LIMIT 5`
+			`UPDATE users 
+				SET name= $1, surname= $2, age= $3, create_date= $4, email= $5 
+					WHERE id= $6`,
+			[name, surname, age, create_date, email, id]
 		);
-		return response.rows;
+		return response;
 	} catch (err) {
 		console.log(err);
 	}
 };
 
-export const getUserByIdServices = async (id: string) => {
+export const deleteUserServices = async (id: string) => {
 	try {
 		const response: QueryResult = await pool.query(
-			`SELECT * FROM users WHERE id = $1`,
+			`DELETE FROM users
+				WHERE id= $1`,
 			[id]
 		);
-		return response.rows;
+		return response;
 	} catch (err) {
 		console.log(err);
 	}
