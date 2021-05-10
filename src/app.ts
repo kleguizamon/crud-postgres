@@ -1,13 +1,14 @@
-import express, { Request, Response, NextFunction } from 'express';
-
+import express, { Request, Response, NextFunction, Application } from 'express';
 import indexRouter from './routes/index';
+const app: Application = express();
 
-const app = express();
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 
-app.use('/users', indexRouter);
+app.use('/', indexRouter);
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-	res.status(500).json({ message: err.message });
-});
+// app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+// 	res.status(500).json({ message: err.message });
+// });
 
 app.listen(4000);

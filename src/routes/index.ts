@@ -1,13 +1,14 @@
-import { Router, Request, Response, NextFunction } from 'express';
-
+import { Router } from 'express';
 const router = Router();
 
-router.post('/', (req: Request, res: Response, next: NextFunction) => {});
+import { checkHealth } from '../controllers/healthController';
+import { postUser, getUser, getUserById } from '../controllers/crudController';
 
-router.get('/', (req: Request, res: Response, next: NextFunction) => {});
-
-router.put('/', (req: Request, res: Response, next: NextFunction) => {});
-
-router.delete('/', (req: Request, res: Response, next: NextFunction) => {});
+router.get('/health', checkHealth);
+router.get('/users', getUser);
+router.get('/users/:id', getUserById);
+router.post('/users', postUser);
+router.put('/users/:id');
+router.delete('/users/:id');
 
 export default router;
