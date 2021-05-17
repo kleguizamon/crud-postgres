@@ -4,7 +4,7 @@ import { QueryResult } from 'pg';
 export const getUserService = async () => {
 	try {
 		const response: QueryResult = await pool.query(
-			`SELECT * FROM users LIMIT 5`
+			`SELECT * FROM users LIMIT 5` 
 		);
 		return response.rows;
 	} catch (err) {
@@ -15,7 +15,7 @@ export const getUserService = async () => {
 export const getUserByIdServices = async (id: string) => {
 	try {
 		const response: QueryResult = await pool.query(
-			`SELECT * FROM users 
+			`SELECT * FROM users z
 				WHERE id = $1`,
 			[id]
 		);

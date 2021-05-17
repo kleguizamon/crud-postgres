@@ -11,4 +11,4 @@ app.use('/', indexRouter);
 // 	res.status(500).json({ message: err.message });
 // });
 
-app.listen(4000);
+export = app.listen(4000);
