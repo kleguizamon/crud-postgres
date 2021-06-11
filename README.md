@@ -1,4 +1,4 @@
-- CRUD app with Express
+- CRUD app(Express)
 - Docker & docker-compose
 - PostgreSQL
-- Test with Mocha-Chai
+- TDD(Mocha-Chai)
